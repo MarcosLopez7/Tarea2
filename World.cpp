@@ -1,7 +1,13 @@
 #include "World.h"
 
 World::World() {
-	
+
+	characters = new vector<Character *>;
+
+	board = (int **)malloc(sizeof(int *) * N);
+	for  (int i = 0; i < N; ++i) {
+		board[i] = (int *)malloc(sizeof(int *) * N);
+	}
 }
 
 void World::init() {
@@ -41,19 +47,19 @@ void World::init() {
 				ostringstream oss;
 				if (VILLAGERS_NUMBER > i) {
 					oss << (i + 1);
-					characters.push_back(Villager(randNumForX, randNumForY, "AF" + oss.str(), false));
+					characters->push_back(new Villager(randNumForX, randNumForY, "AF" + oss.str(), false));
 					board[randNumForX][randNumForY] = VF;
 				} else if (2 * VILLAGERS_NUMBER > i && i >= VILLAGERS_NUMBER) {
 					oss << (i - VILLAGERS_NUMBER + 1);
-					characters.push_back(Villager(randNumForX, randNumForY, "AT" + oss.str(), true));
+					characters->push_back(new Villager(randNumForX, randNumForY, "AT" + oss.str(), true));
 					board[randNumForX][randNumForY] = VT;
 				} else if (WARRIORS_NUMBER + (2 * VILLAGERS_NUMBER) > i && i >= 2 * VILLAGERS_NUMBER) {
 					oss << (i - (VILLAGERS_NUMBER * 2) + 1);
-					characters.push_back(Warrior(randNumForX, randNumForY, "GF" + oss.str(), false));
+					characters->push_back(new Warrior(randNumForX, randNumForY, "GF" + oss.str(), false));
 					board[randNumForX][randNumForY] = WF;
 				} else {
 					oss << (i - (VILLAGERS_NUMBER * 2) - WARRIORS_NUMBER + 1);
-					characters.push_back(Warrior(randNumForX, randNumForY, "GT" + oss.str(), true));
+					characters->push_back(new Warrior(randNumForX, randNumForY, "GT" + oss.str(), true));
 					board[randNumForX][randNumForY] = WT;
 				}
 
@@ -73,15 +79,47 @@ void World::run() {
 	int cont = 0;
 
 	while (!detectFalseLost() && !detectTrueLost()) {
-
+/*
 		vector<Character> charactersMoved;
 
 		for (int i = 0; i < characters.size(); i++) {
 			characters[i].detect(board);
 		}
 
+		for (int i = 0; i < (VILLAGERS_NUMBER * 2) + (WARRIORS_NUMBER * 2); i++) {
 
+			if (VILLAGERS_NUMBER > i) {
+				
+				if (characters[i].detectEnemyWarrior()) {
 
+				}
+				else if (food > 0 && detectInjuredFriendWarrior(b, c)) {
+					food--;
+				}
+				else if (food > 0 && healt < 100) {
+					food--;
+					healt += 50;
+				}
+				else if (detectFood()) {
+					food++;
+				}
+				else {
+
+				}
+
+			}
+			else if (2 * VILLAGERS_NUMBER > i && i >= VILLAGERS_NUMBER) {
+			
+			}
+			else if (WARRIORS_NUMBER + (2 * VILLAGERS_NUMBER) > i && i >= 2 * VILLAGERS_NUMBER) {
+				
+			}
+			else {
+			
+			}
+
+		}
+		*/
 	}
 
 }
@@ -92,9 +130,9 @@ void World::print() {
 		for (int j = 0; j < N; ++j) {
 
 			if (WT >= board[i][j] && board[i][j] >= VF) {
-				for (int k = 0; k < characters.size(); ++k) {
-					if (i == characters[k].getPositionX() && j == characters[k].getPositionY()) {
-						cout << " " << characters[k].getName();
+				for (int k = 0; k < characters->size(); ++k) {
+					if (i == characters->at(k)->getPositionX() && j == characters->at(k)->getPositionY()) {
+						cout << " " << characters->at(k)->getName();
 						break;
 					}
 				}
@@ -123,7 +161,7 @@ bool World::detectFalseLost() {
 	int deads = 0;
 
 	for (int i = 0; i < VILLAGERS_NUMBER; ++i) {
-		if (0 >= characters[i].getHealt()) {
+		if (0 >= characters->at(i)->getHealt()) {
 			deads++;
 		}
 	}
@@ -141,7 +179,7 @@ bool World::detectTrueLost() {
 	int deads = 0;
 
 	for (int i = VILLAGERS_NUMBER; i < VILLAGERS_NUMBER * 2; ++i) {
-		if (0 >= characters[i].getHealt()) {
+		if (0 >= characters->at(i)->getHealt()) {
 			deads++;
 		}
 	}
@@ -155,6 +193,11 @@ bool World::detectTrueLost() {
 
 }
 
-World::~World()
-{
+World::~World() {
+	for (int i = N - 1; i >= 0; --i) {
+		free(board[i]);
+	}
+
+	free(board);
+	delete characters;
 }

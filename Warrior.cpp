@@ -2,6 +2,10 @@
 
 Warrior::Warrior(int px, int py, string n, bool t) : Character(px, py, n, t) {}
 
+void Warrior::doSomething(int **b) {
+
+}
+
 Warrior::~Warrior()
 {
 }

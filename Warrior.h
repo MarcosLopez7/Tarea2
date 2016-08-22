@@ -14,10 +14,12 @@ public:
 	void attack();
 	void eat();
 	void dropTrail();
+	void doSomething(int **);
 
 private:
 	int positionX;
 	int positionY;
 	int healt;
 	string name;
+
 };

@@ -17,7 +17,9 @@ public:
 	void heal();
 	void collect();
 	void eat();
-	virtual void doSomething(int [N][N], vector<Character>);
+	int getFood();
+	void setFood(int);
+	void doSomething(int **);
 	
 private:
 

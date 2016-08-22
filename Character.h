@@ -27,6 +27,8 @@ public:
 	bool getTeam();
 	int getHealt();
 	string getName();
+	bool detectEnemyWarrior();
+	void virtual doSomething(int **) = 0;
 
 protected:
 	int positionX;
@@ -35,8 +37,6 @@ protected:
 	string name;
 	bool team;
 	int sensor[8][3];
-	bool detectEnemyWarrior();
 
-	virtual void doSomething(int b[N][N]);
 };
 

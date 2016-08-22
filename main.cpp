@@ -2,8 +2,9 @@
 
 int main() {
 
-	World world;
-	world.init();
+	World *world = new World;
+	world->init();
+	delete world;
 
 	system("pause");
 	return 0;

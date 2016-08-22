@@ -5,21 +5,21 @@ Villager::Villager(int px, int py, string n, bool t) : Character(px, py, n, t) {
 	srand((int)time(NULL));
 }
 
-void Villager::doSomething(int b[N][N], vector<Character> c) {
-		
-	if (detectEnemyWarrior()) {
-	} else if (food > 0 && detectInjuredFriendWarrior(b, c)) {
-		food--;
-	} else if (food > 0 && healt < 100) {
-		food--;
-		healt += 50;
-	} else if (detectFood()) {
-		food++;
-	} else {
+void Villager::setFood(int f) {
+	food = f;
+}
 
-	}
+int Villager::getFood() {
+	return food;
+}
+
+
+void Villager::doSomething(int **b) {
+		
+	
 	
 }
+
 
 bool Villager::detectInjuredFriendWarrior(int b[N][N], vector<Character> c) {
 
@@ -57,7 +57,7 @@ bool Villager::detectFood() {
 }
 
 void Villager::moveRandom() {
-
+	/*
 	while (true) {
 
 		int xp = rand() % 3 - 1;
@@ -65,7 +65,7 @@ void Villager::moveRandom() {
 
 		if ((xp != 0 || yp != 0) && )
 	}
-
+	*/
 }
 
 Villager::~Villager()

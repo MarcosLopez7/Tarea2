@@ -20,8 +20,8 @@ public:
 
 private:
 	
-	int board[N][N];
-	vector<Character> characters;
+	int **board;
+	vector<Character *> *characters;
 
 	void print();
 	bool detectFalseLost();
