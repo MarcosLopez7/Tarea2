@@ -11,15 +11,12 @@ public:
 	Warrior(int, int, string, bool);
 	~Warrior();
 
-	void attack();
-	void eat();
-	void dropTrail();
-	void doSomething(int **);
+	void attack(int **, vector<Character *> *);
+	void dropTrail(int **);
+	void doSomething(int **, vector<Character *> *);
 
 private:
-	int positionX;
-	int positionY;
-	int healt;
-	string name;
+	void moveRandom(int **);
+	bool detectEnemy();
 
 };

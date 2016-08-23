@@ -1,9 +1,9 @@
 #pragma once
+#include <windows.h>
 #include "Warrior.h"
 #include "Villager.h"
 #include <sstream>
-#include <iostream>
-#include <vector>
+#include <conio.h>
 
 #define WARRIORS_NUMBER 5
 #define VILLAGERS_NUMBER 5

@@ -2,7 +2,6 @@
 #include "Character.h"
 #include <string>
 #include <ctime>
-#include <vector>
 
 using namespace std;
 
@@ -13,20 +12,20 @@ public:
 	Villager(int, int, string, bool);
 	~Villager();
 
-	void run();
-	void heal();
-	void collect();
-	void eat();
+	void heal(vector<Character *> *);
+	void collect(int **);
 	int getFood();
 	void setFood(int);
-	void doSomething(int **);
+	void doSomething(int **, vector<Character *> *);
 	
 private:
 
 	int food;
-	bool detectInjuredFriendWarrior(int [N][N], vector<Character>);
+	bool detectInjuredFriendWarrior(int **, vector<Character *> *);
 	bool detectFood();
-	void moveRandom();
-
+	bool detectTrail();
+	void moveRandom(int **);
+	void moveToTrail(int **);
+	void deleteFood(int **);
 };
 

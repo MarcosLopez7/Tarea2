@@ -1,6 +1,8 @@
 #pragma once
 #include <string>
 #include <ctime>
+#include <vector>
+#include <iostream>
 
 #define N 30
 #define EMPTY 0
@@ -20,15 +22,18 @@ public:
 	Character(int, int, string, bool);
 	~Character();
 
-	void explore();
-	void detect(int [N][N]);
+	void detect(int **);
+	void setHealt(int);
 	int getPositionX();
 	int getPositionY();
 	bool getTeam();
 	int getHealt();
 	string getName();
+	bool getDead();
+	void setDead(bool);
+	void run(int **);
 	bool detectEnemyWarrior();
-	void virtual doSomething(int **) = 0;
+	void virtual doSomething(int **, vector<Character *> *) = 0;
 
 protected:
 	int positionX;
@@ -36,7 +41,8 @@ protected:
 	int healt;
 	string name;
 	bool team;
+	bool dead;
 	int sensor[8][3];
-
+	Character *getCharacterByPosition(vector<Character *> *, int, int);
 };
 

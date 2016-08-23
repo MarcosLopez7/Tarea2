@@ -1,7 +1,5 @@
 ﻿  World.cpp
-c:\users\marcos\dropbox\materias 9no semestre\sistemas inteligente\tarea2\tarea2\world.cpp(133): warning C4018: '<': signed/unsigned mismatch
-  Generating Code...
-  Skipping... (no relevant changes detected)
-  main.cpp
+c:\users\marcos\dropbox\materias 9no semestre\sistemas inteligente\tarea2\tarea2\world.cpp(83): warning C4018: '<': signed/unsigned mismatch
+c:\users\marcos\dropbox\materias 9no semestre\sistemas inteligente\tarea2\tarea2\world.cpp(110): warning C4018: '<': signed/unsigned mismatch
   Tarea2.vcxproj -> C:\Users\Marcos\Dropbox\Materias 9no Semestre\Sistemas Inteligente\Tarea2\Debug\Tarea2.exe
   Tarea2.vcxproj -> C:\Users\Marcos\Dropbox\Materias 9no Semestre\Sistemas Inteligente\Tarea2\Debug\Tarea2.pdb (Partial PDB)

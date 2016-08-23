@@ -6,6 +6,7 @@ Character::Character(int px, int py, string n, bool t) {
 	name = n;
 	team = t;
 	healt = 100;
+	dead = false;
 }
 
 string Character::getName() {
@@ -28,7 +29,15 @@ int Character::getHealt() {
 	return healt;
 }
 
-void Character::detect(int b[N][N]) {
+bool Character::getDead() {
+	return dead;
+}
+
+void Character::setDead(bool d) {
+	dead = d;
+}
+
+void Character::detect(int **b) {
 
 	sensor[0][0] = b[positionX - 1][positionY + 1]; sensor[0][1] = positionX - 1; sensor[0][2] = positionY + 1;
 	sensor[1][0] = b[positionX][positionY + 1]; sensor[1][1] = positionX; sensor[1][2] = positionY + 1;
@@ -40,6 +49,38 @@ void Character::detect(int b[N][N]) {
 	sensor[7][0] = b[positionX - 1][positionY]; sensor[7][1] = positionX - 1; sensor[7][2] = positionY;
 
 }
+
+void Character::run(int **b) {
+
+	while (true) {
+
+		int xp = rand() % 3 - 1;
+		int yp = rand() % 3 - 1;
+
+		if ((xp != 0 || yp != 0) && (b[positionX + xp][positionY + yp] == EMPTY)) {
+			if (team) {
+				b[positionX + xp][positionY + yp] = VT;
+				b[positionX][positionY] = EMPTY;
+				positionX += xp;
+				positionY += yp;
+				detect(b);
+				if (!detectEnemyWarrior())
+					break;
+			}
+			else if (!team) {
+				b[positionX + xp][positionY + yp] = VF;
+				b[positionX][positionY] = EMPTY;
+				positionX += xp;
+				positionY += yp;
+				break;
+				detect(b);
+				if (!detectEnemyWarrior())
+					break;
+			}
+		}
+	}
+
+};
 
 bool Character::detectEnemyWarrior() {
 
@@ -53,6 +94,21 @@ bool Character::detectEnemyWarrior() {
 
 	return false;
 
+}
+
+void Character::setHealt(int h) {
+	healt = h;
+}
+
+Character *Character::getCharacterByPosition(vector<Character *> *c, int x, int y) {
+
+	for (int i = 0; i < c->size(); i++) {
+		if (x == c->at(i)->getPositionX() && y == c->at(i)->getPositionY()) {
+			return c->at(i);
+		}
+	}
+
+	return NULL;
 }
 
 Character::~Character()

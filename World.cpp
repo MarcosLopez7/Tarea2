@@ -79,49 +79,26 @@ void World::run() {
 	int cont = 0;
 
 	while (!detectFalseLost() && !detectTrueLost()) {
-/*
-		vector<Character> charactersMoved;
 
-		for (int i = 0; i < characters.size(); i++) {
-			characters[i].detect(board);
+		for (int i = 0; i < characters->size(); i++) {
+			characters->at(i)->detect(board);
 		}
 
 		for (int i = 0; i < (VILLAGERS_NUMBER * 2) + (WARRIORS_NUMBER * 2); i++) {
-
-			if (VILLAGERS_NUMBER > i) {
-				
-				if (characters[i].detectEnemyWarrior()) {
-
-				}
-				else if (food > 0 && detectInjuredFriendWarrior(b, c)) {
-					food--;
-				}
-				else if (food > 0 && healt < 100) {
-					food--;
-					healt += 50;
-				}
-				else if (detectFood()) {
-					food++;
-				}
-				else {
-
-				}
-
-			}
-			else if (2 * VILLAGERS_NUMBER > i && i >= VILLAGERS_NUMBER) {
-			
-			}
-			else if (WARRIORS_NUMBER + (2 * VILLAGERS_NUMBER) > i && i >= 2 * VILLAGERS_NUMBER) {
-				
-			}
-			else {
-			
-			}
-
+			characters->at(i)->doSomething(board, characters);
 		}
-		*/
+
+		system("pause");
+
+		print();
 	}
 
+	if (detectFalseLost()) {
+		cout << "El equipo True gano\n";
+	}
+	else {
+		cout << "El equipo False gano\n";
+	}
 }
 
 void World::print() {
@@ -149,6 +126,7 @@ void World::print() {
 	cout << "0 = casilla vacia\n";
 	cout << "1 = comida\n";
 	cout << "2 = obstaculo\n";
+	cout << "3 = rastro de guerrero herido\n";
 	cout << "A = aldeano\n";
 	cout << "G = guerrero\n";
 	cout << "T = equipo True\n";
@@ -161,7 +139,7 @@ bool World::detectFalseLost() {
 	int deads = 0;
 
 	for (int i = 0; i < VILLAGERS_NUMBER; ++i) {
-		if (0 >= characters->at(i)->getHealt()) {
+		if (characters->at(i)->getDead()) {
 			deads++;
 		}
 	}
@@ -179,7 +157,7 @@ bool World::detectTrueLost() {
 	int deads = 0;
 
 	for (int i = VILLAGERS_NUMBER; i < VILLAGERS_NUMBER * 2; ++i) {
-		if (0 >= characters->at(i)->getHealt()) {
+		if (characters->at(i)->getDead()) {
 			deads++;
 		}
 	}
